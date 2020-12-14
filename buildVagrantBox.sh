@@ -35,7 +35,7 @@ while IFS= read -r line
 do
   echo "  pack system image: $line"
   imageSha256=`docker pull $line | grep Digest | awk -F':' '{print $3}'`
-  docker save $line > images/$imageSha256
+  docker save $line > images/$imageSha256.tar
 done < "$systemImagePath"
 echo
 
@@ -44,7 +44,7 @@ while IFS='' read -r line2
 do
   echo "  pack extra image: $line2"
   imageSha256=`docker pull $line2 | grep Digest | awk -F':' '{print $3}'`
-  docker save $line2 > images/$imageSha256
+  docker save $line2 > images/$imageSha256.tar
 done < $extraImagesList
 
 packer build packer/vagrant.json 

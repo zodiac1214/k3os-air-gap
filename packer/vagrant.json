@@ -30,7 +30,7 @@
     "ssh_private_key_file": "packer/vagrant-ssh-default.pem",
     "ssh_wait_timeout": "1000s",
     "disk_size": "8000",
-    "shutdown_command": "sudo halt",
+    "shutdown_command": "sudo poweroff",
     "post_shutdown_delay": "10s",
     "format": "ova"
 
