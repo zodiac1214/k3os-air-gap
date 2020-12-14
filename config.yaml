@@ -1,0 +1,17 @@
+# Based on https://github.com/rancher/quickstart
+
+k3os_version: 0.11.1
+k3s_token: 8aw47ft0w864ft08w64ftwa7eag8w7t
+linked_clones: true
+net:
+  network_type: private_network
+server:
+  cpus: 1
+  memory: 2048
+node:
+  count: 1
+  cpus: 2
+  memory: 4096
+ip:
+  server: 192.168.33.10
+  node: 192.168.33.11 # ip of first node

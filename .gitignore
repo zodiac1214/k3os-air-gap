@@ -1,0 +1,8 @@
+packer_cache
+output-virtualbox-iso
+*.box
+*.swp
+.vagrant
+.DS_Store
+images
+kube.config
