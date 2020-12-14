@@ -1,7 +1,5 @@
 #!/bin/sh
 read -p "turn off wifi!!!! (press any key to continue ...)"
-rm -rf Vagrantfile
-cp ../Vagrantfile Vagrantfile
 vagrant destroy -f
 vagrant box remove k3os --force
 vagrant box add ../k3os_virtualbox.box --name k3os --force

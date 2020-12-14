@@ -65,4 +65,4 @@ if [[ -z $builders ]]; then
     builders="vagrant"
 fi
 
-packer build --force --only=$builders packer/vagrant.json 
+packer build --force --only=$builders packer/packer.json 
