@@ -8,7 +8,7 @@ packer by HashiCorp is used to pack machine images.
 * [vagrant*](https://www.vagrantup.com/)
 * [virtual box*](https://www.virtualbox.org/)
 
-\* only required if you want to use vagrant to run [example](tree/master/example) or test packed images locally.
+\* only required if you want to use vagrant to run [example](example) or test packed images locally.
 ## Quick Start (example)
 
 Build hello-world example:
