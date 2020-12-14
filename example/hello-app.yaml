@@ -32,5 +32,6 @@ spec:
       containers:
       - name: hello-app
         image: gcr.io/google-samples/hello-app:1.0
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
