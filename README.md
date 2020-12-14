@@ -15,7 +15,7 @@ Run example*
 ./example/demo.sh
 ```
 
-\* in progress, it only creates a one master, one worker cluster. 
+\* in progress, you will have to manually update kube config for now (see issue #1). 
 
 ## Kube Config
 
