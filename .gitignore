@@ -7,3 +7,5 @@ output-virtualbox-iso
 images
 kube.config
 *.tar
+*.log
+output-*

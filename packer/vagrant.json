@@ -4,6 +4,7 @@
     "checksum": "ab15fcd4c4f5ed8805932523f85594f6844fe611fc50f8bc9a82ddd9bd326db0"
   },
   "builders": [{
+    "name": "vagrant",
     "type": "virtualbox-iso",
     "boot_wait": "6s",
     "boot_command": [
@@ -62,7 +63,7 @@
   }],
   "post-processors": [{
     "type": "vagrant",
-    "keep_input_artifact": false,
+    "keep_input_artifact": true,
     "output": "k3os_{{.Provider}}.box",
     "vagrantfile_template": "Vagrantfile"
   }]

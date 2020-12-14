@@ -1,12 +1,14 @@
 #!/bin/sh
-
+set -e
 usage() {
   echo "$0: Build your vagrant vbox image for air gapped installation"
   echo
   echo "Usage:"
   echo "$0 --extraImagesList path"
+  echo "$0 --builders name1,name2"
   echo "Available options: "
   echo -e "\t      --extraImagesList      - path to a file has list of extra images"
+  echo -e "\t      --builders             - comma separated names of packer builder [vagrant/vsphere]"
   exit 1
 }
 
@@ -15,6 +17,10 @@ while [[ $# > 0 ]]; do
   case "${1}" in
     --extraImagesList)
       extraImagesList=${2}
+      shift
+      ;;
+    --builders)
+      builders=${2}
       shift
       ;;
     -h|--help)
@@ -41,15 +47,21 @@ do
   echo "  pack system image: $line"
   imageSha256=`docker pull $line | grep Digest | awk -F':' '{print $3}'`
   docker save $line > images/$imageSha256.tar
-done < "$systemImagePath"
+done < "system-images.list"
 echo
-echo "Pack extra images ..."
-while IFS='' read -r line2
-do
-  echo "  pack extra image: $line2"
-  imageSha256=`docker pull $line2 | grep Digest | awk -F':' '{print $3}'`
-  docker save $line2 > images/$imageSha256.tar
-done < $extraImagesList
 
-packer build packer/vagrant.json 
-vagrant box add k3os_virtualbox.box --name k3os --force
+if [[ ! -z $extraImagesList ]]; then
+    echo "Pack extra images ..."
+    while IFS='' read -r line2
+    do
+    echo "  pack extra image: $line2"
+    imageSha256=`docker pull $line2 | grep Digest | awk -F':' '{print $3}'`
+    docker save $line2 > images/$imageSha256.tar
+    done < $extraImagesList
+fi
+
+if [[ -z $builders ]]; then
+    echo "Error: builders is spcified.(only vagrant builder is supported)"
+fi
+
+packer build --force --only=$builders packer/vagrant.json 
