@@ -26,6 +26,7 @@ hostname: k3os-server
 k3os:
   k3s_args:
     - server
+    - "--disable-agent"
 #    - "-v=1"
     - "--token=${k3s_token}"
     - "--bind-address=${k3s_server_ip}"
