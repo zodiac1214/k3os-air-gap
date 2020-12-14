@@ -15,7 +15,7 @@ Run example*
 ./example/demo.sh
 ```
 
-\* in progress, you will have to manually update kube config for now (see issue #1). 
+\* in progress, you will have to manually update kube config for now (see issue [#1](/../../issues/1)). 
 
 ## Kube Config
 
