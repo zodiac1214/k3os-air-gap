@@ -27,7 +27,6 @@ hostname: k3os-${k3s_node_index}
 k3os:
   k3s_args:
     - agent
-#    - "-v=1"
     - "--token=${k3s_token}"
     - "--server=https://${k3s_server_ip}:6443"
     - "--flannel-iface=eth1"
