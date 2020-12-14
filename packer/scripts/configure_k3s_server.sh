@@ -35,6 +35,8 @@ k3os:
     - "--node-ip=${k3s_server_ip}"
     - "--node-external-ip=${k3s_server_ip}"
     - "--no-deploy=traefik"
+  environment:
+    INSTALL_K3S_SKIP_DOWNLOAD: true
 EOF
 
 reboot

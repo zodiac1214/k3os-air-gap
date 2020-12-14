@@ -38,7 +38,7 @@
   "provisioners": [{
     "type": "shell",
     "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
-    "inline": ["rm -rf /var/lib/rancher/k3s", " rm /home/rancher/VBoxGuestAdditions.iso", "echo provision done"]
+    "inline": [" rm /home/rancher/VBoxGuestAdditions.iso", "echo provision done"]
   },
   {
     "type": "file",
@@ -49,6 +49,16 @@
     "type": "file",
     "source": "./images",
     "destination": "/home/rancher/images"
+  },
+  {
+    "type": "file",
+    "source": "./k3s-airgap-images-amd64.tar",
+    "destination": "/home/rancher/k3s-airgap-images-amd64.tar"
+  },
+  {
+    "type": "shell",
+    "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+    "inline": ["sudo mkdir -p /var/lib/rancher/k3s/agent/images/", "sudo mv /home/rancher/k3s-airgap-images-amd64.tar /var/lib/rancher/k3s/agent/images/k3s-airgap-images-amd64.tar"]
   }],
   "post-processors": [{
     "type": "vagrant",

@@ -6,3 +6,4 @@ output-virtualbox-iso
 .DS_Store
 images
 kube.config
+*.tar

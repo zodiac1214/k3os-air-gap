@@ -27,8 +27,13 @@ while [[ $# > 0 ]]; do
   shift
 done
 
-systemImagePath=`dirname "$0"`/system-images.list
-echo "Pack system images ..."
+if [[ ! -f "k3s-airgap-images-amd64.tar" ]]; then
+    echo "download air gap system images"
+    curl -L https://github.com/k3s-io/k3s/releases/download/v1.18.9%2Bk3s1/k3s-airgap-images-amd64.tar > k3s-airgap-images-amd64.tar
+else 
+    echo "air gap system images exist"
+fi
+
 rm -rf images
 mkdir -p images
 while IFS= read -r line
@@ -38,7 +43,6 @@ do
   docker save $line > images/$imageSha256.tar
 done < "$systemImagePath"
 echo
-
 echo "Pack extra images ..."
 while IFS='' read -r line2
 do

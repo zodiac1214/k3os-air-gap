@@ -34,6 +34,8 @@ k3os:
     - "--node-name=k3os-${k3s_node_index}"
     - "--node-ip=${k3s_node_ip}"
     - "--node-external-ip=${k3s_node_ip}"
+  environment:
+    INSTALL_K3S_SKIP_DOWNLOAD: true
 EOF
 for filename in /home/rancher/images/*.tar; do
     sudo ctr image import ${filename}
