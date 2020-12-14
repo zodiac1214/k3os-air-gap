@@ -15,15 +15,12 @@ Run example*
 ./example/demo.sh
 ```
 
-\* in progress, you will have to manually update kube config for now (see issue [#1](/../../issues/1)). 
+\* in progress, you will have to manually update kube config for now (see issue [#1](/../../issues/1)). The script pause and you will need to update kube config manually before you proceed to example app deployment.
 
-## Kube Config
+Get kube Config
 
 ```
 ssh -o StrictHostKeyChecking=no  -i packer/vagrant-ssh-default.pem rancher@192.168.33.10 "cat /etc/rancher/k3s/k3s.yaml"
 ```
 
-## Deploy hello-world 
-```
-kubectl apply -f example/hello-world.yaml
-```
+Continue in `example/demo.sh`
