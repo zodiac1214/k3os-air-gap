@@ -61,7 +61,8 @@ if [[ ! -z $extraImagesList ]]; then
 fi
 
 if [[ -z $builders ]]; then
-    echo "Error: builders is spcified.(only vagrant builder is supported)"
+    echo "Error: builders is not spcified.(default: vagrant)"
+    builders="vagrant"
 fi
 
 packer build --force --only=$builders packer/vagrant.json 

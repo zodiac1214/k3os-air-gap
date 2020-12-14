@@ -65,6 +65,6 @@
     "type": "vagrant",
     "keep_input_artifact": true,
     "output": "k3os_{{.Provider}}.box",
-    "vagrantfile_template": "Vagrantfile"
+    "vagrantfile_template": "packer/vagrant.template"
   }]
 }

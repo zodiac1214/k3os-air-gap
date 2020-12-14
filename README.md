@@ -10,7 +10,7 @@ packer by HashiCorp is used to pack machine images.
 
 \* only required if you want to use vagrant to run [example](example) or test packed images locally.
 ## Quick Start (example)
-The example project demonstrate how to pack "hello-world"(gcr.io/google-samples/node-hello:1.0) into air gap machine image.
+The example project demonstrate how to pack [hello-app](https://github.com/GoogleCloudPlatform/kubernetes-engine-samples/tree/master/hello-app) into air gap machine image.
 Build hello-world example:
 ```
 ./pack.sh --extraImagesList example/images.list --builders=vagrant
