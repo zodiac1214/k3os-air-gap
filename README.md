@@ -13,7 +13,7 @@ packer by HashiCorp is used to pack machine images.
 The example project demonstrate how to pack [hello-app](https://github.com/GoogleCloudPlatform/kubernetes-engine-samples/tree/master/hello-app) into air gap machine image.
 Build hello-world example:
 ```
-./pack.sh --extraImagesList example/images.list --builders=vagrant
+./pack.sh --extraImagesList example/images.list --builders vagrant
 ```
 
 Run example
