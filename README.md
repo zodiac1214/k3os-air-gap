@@ -9,15 +9,15 @@ packer by HashiCorp is used to pack machine images.
 * [virtual box*](https://www.virtualbox.org/)
 
 \* only required if you want to use vagrant to run [example](example) or test packed images locally.
-## Quick Start (example)
+## Quick Start (example - simple)
 The example project demonstrate how to pack [hello-app](https://github.com/GoogleCloudPlatform/kubernetes-engine-samples/tree/master/hello-app) into air gap machine image.
 Build hello-world example:
 ```
-./pack.sh --extraImagesList example/images.list --builders vagrant
+./pack.sh --extraImagesList example/simple/images.list --builders vagrant
 ```
 
-Run example
+Run simple example
 ```
-cd example
+cd example/simple
 ./demo.sh
 ```
