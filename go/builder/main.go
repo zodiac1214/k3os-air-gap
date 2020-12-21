@@ -17,8 +17,8 @@ func main() {
 	}
 	switch cmd {
 	case builder.GenCmd.FullCommand():
-		cli.RunGen(gen.GenParameters{Name: *builder.GenCmd.Name, Path: *builder.GenCmd.Path})
+		cli.RunGen(gen.GenParameters{Name: *builder.GenCmd.Name, Path: *builder.GenCmd.Path, Force: *builder.GenCmd.Force})
 	case builder.BuildCmd.FullCommand():
-		cli.RunBuild(build.BuildParameters{Path: *builder.BuildCmd.Path})
+		cli.RunBuild(build.BuildParameters{Path: *builder.BuildCmd.Path, Force: *builder.BuildCmd.Force})
 	}
 }

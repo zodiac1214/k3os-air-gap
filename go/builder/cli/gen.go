@@ -8,6 +8,10 @@ import (
 
 func RunGen(param gen.GenParameters) {
 	fullPath := param.Path + "/" + param.Name
+	if param.Force {
+		os.RemoveAll(fullPath)
+	}
+
 	err := os.MkdirAll(fullPath, 0755)
 	if err != nil {
 		errPrint := fmt.Errorf("%s", "Failed to create output directory: "+fullPath)

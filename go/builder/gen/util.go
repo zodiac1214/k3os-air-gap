@@ -7,8 +7,9 @@ import (
 )
 
 type GenParameters struct {
-	Name string
-	Path string
+	Name  string
+	Path  string
+	Force bool
 }
 
 func CreateFolder(param GenParameters, subFolder string) (string, error) {

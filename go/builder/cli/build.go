@@ -7,6 +7,9 @@ import (
 )
 
 func RunBuild(param build.BuildParameters) {
+	if param.Force {
+		os.RemoveAll("./dist")
+	}
 	// copy dir to dist folder before build
 	os.MkdirAll("./dist", 0755)
 	build.CopyDirectory(param.Path, "./dist")
