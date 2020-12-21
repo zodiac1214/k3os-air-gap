@@ -21,3 +21,18 @@ Run simple example
 cd example/simple
 ./demo.sh
 ```
+
+## Generate a new project
+```bash
+builder gen --force --name=my-new-project
+```
+## Build and pack 
+```bash
+builder build --force --path=./my-new-project
+```
+
+## Install (vagrant only)
+```bash
+installer --path=./dist/my-new-project 
+
+```
