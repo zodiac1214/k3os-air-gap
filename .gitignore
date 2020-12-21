@@ -9,3 +9,4 @@ kube.config
 *.tar
 *.log
 output-*
+/my-project/
