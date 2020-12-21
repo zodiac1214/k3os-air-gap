@@ -40,7 +40,7 @@ func RegisterCommands(app *kingpin.Application) App {
 	builder.GenCmd.Path = builder.GenCmd.Flag("path", "output path of the project").Default(".").String()
 
 	builder.BuildCmd.CmdClause = app.Command("build", "bootstrap a project")
-	builder.BuildCmd.Path = builder.BuildCmd.Flag("path", "output path of the project").Default(".").String()
+	builder.BuildCmd.Path = builder.BuildCmd.Flag("path", "output path of the project").Required().String()
 
 	//builder.UsageTemplate(kingpin.DefaultUsageTemplate)
 
