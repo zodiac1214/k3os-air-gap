@@ -24,7 +24,7 @@ func RunGen(param gen.GenParameters) {
 	const readmeContent = `
 # Welcome to k3os air gap project
 `
-	err = gen.CreateReadmeFile(fullPath, readmeContent)
+	err = gen.CreateTextFile(fullPath, "README.md", readmeContent)
 	if err != nil {
 		errPrint := fmt.Errorf("%s", "Failed to create readme.md: "+fullPath)
 		fmt.Println(errPrint)

@@ -18,8 +18,8 @@ func CreateFolder(param GenParameters, subFolder string) (string, error) {
 	return path, err
 }
 
-func CreateReadmeFile(path string, content string) error {
-	readmeFile, err := os.Create(filepath.Join(path, "README.md"))
+func CreateTextFile(path string, filename string, content string) error {
+	readmeFile, err := os.Create(filepath.Join(path, filename))
 	defer readmeFile.Close()
 	if err != nil {
 		errMsg := fmt.Errorf("%s", err)

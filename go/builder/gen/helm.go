@@ -16,7 +16,7 @@ func Helm(param GenParameters) {
 	const readmeContent = `
 # This is a Readme file HELM
 `
-	err = CreateReadmeFile(path, readmeContent)
+	err = CreateTextFile(path, "README.md", readmeContent)
 	if err != nil {
 		errMsg := fmt.Errorf("%s", err)
 		fmt.Println(errMsg)
