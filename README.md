@@ -1,7 +1,17 @@
-![build](https://github.com/zodiac1214/kcap/workflows/Go/badge.svg)
-# k3os Machine Image for air-gap system
+# kcap
+[![build](https://github.com/zodiac1214/kcap/workflows/Go/badge.svg)](https://github.com/zodiac1214/kcap/workflows/Go/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/zodiac1214/kcap)](https://goreportcard.com/report/github.com/zodiac1214/kcap)
 
-Pack k8s applications with k3os on air-gap system. All you need is to provide a list of images your application needs. Please note that we only produce vagrant box image for now.
+Kcap (mirror of pack) is a tool for packing kubernetes application for air-gap installation. Kcap produces different types of VM images for air-gap/zero internet installation
+
+Use Kcap to:
+* Pack/Install k8s ([k3os](https://github.com/rancher/k3os)) into air-gapped environment (zero internet access)
+* Pack/Install your k8s applications into air-gap k8s cluster
+
+## Helm chart vs Kubernetes yaml?
+You are covered, run ``builder gen`` and drop your existing helm charts or native k8s yaml files in. You are good to go
+
+# * ----- Under construction (below) -----*
 
 ## Prerequisites
 * [packer](https://www.packer.io/)
