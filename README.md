@@ -4,12 +4,12 @@
 
 Kcap (mirror of pack) is a tool for packing kubernetes application for air-gap installation. Kcap produces different types of VM images for air-gap/zero internet installation
 
-Use Kcap to:
+Use **Kcap** to:
 * Pack/Install k8s ([k3os](https://github.com/rancher/k3os)) into air-gapped environment (zero internet access)
 * Pack/Install your k8s applications into air-gap k8s cluster
 
 ## Helm chart vs Kubernetes yaml?
-You are covered, run ``builder gen`` and drop your existing helm charts or native k8s yaml files in. You are good to go
+Both are covered. You can run ``builder gen`` and drop your existing helm charts or native k8s yaml files in. You are good to go
 
 # * ----- Under construction (below) -----*
 
