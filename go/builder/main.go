@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"github.com/zodiac1214/go/builder/build"
 	"github.com/zodiac1214/go/builder/cli"
 	"github.com/zodiac1214/go/builder/gen"
 	"gopkg.in/alecthomas/kingpin.v2"
@@ -17,8 +17,8 @@ func main() {
 	}
 	switch cmd {
 	case builder.GenCmd.FullCommand():
-		cli.RunGen(gen.GenParameters{Name: *builder.GenCmd.Name, Path: *builder.GenCmd.Path})
+		cli.RunGen(gen.GenParameters{Name: *builder.GenCmd.Name, Path: *builder.GenCmd.Path, Force: *builder.GenCmd.Force})
 	case builder.BuildCmd.FullCommand():
-		fmt.Println("build run")
+		cli.RunBuild(build.BuildParameters{Path: *builder.BuildCmd.Path, Force: *builder.BuildCmd.Force})
 	}
 }

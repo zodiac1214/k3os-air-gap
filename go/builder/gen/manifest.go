@@ -2,9 +2,18 @@ package gen
 
 import (
 	"fmt"
+	"path/filepath"
 )
 
 func Manifest(param GenParameters) {
-	fmt.Println("create manifest file", param)
-	//todo: create manifest.yml
+
+	const content = `
+apiVersion: zodiac1214/k3os
+kind: Manifest
+metadata:
+  name: ThisIsTheName
+`
+	path := filepath.Join(param.Path, param.Name)
+	CreateTextFile(path, "manifest.yaml", content)
+	fmt.Println("create manifest file: ./" + path + "/manifest.yaml")
 }

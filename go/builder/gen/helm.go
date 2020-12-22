@@ -6,17 +6,17 @@ import (
 )
 
 func Helm(param GenParameters) {
-	fmt.Println("create sample helm chart", param)
 	path, err := CreateFolder(param, "charts")
 	if err != nil {
 		errMsg := fmt.Errorf("%s", err)
 		fmt.Println(errMsg)
 	}
+	fmt.Println("create sample helm chart:", path)
 
 	const readmeContent = `
 # This is a Readme file HELM
 `
-	err = CreateReadmeFile(path, readmeContent)
+	err = CreateTextFile(path, "README.md", readmeContent)
 	if err != nil {
 		errMsg := fmt.Errorf("%s", err)
 		fmt.Println(errMsg)
