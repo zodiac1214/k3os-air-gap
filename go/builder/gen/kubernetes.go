@@ -5,12 +5,12 @@ import (
 )
 
 func Kubernetes(param GenParameters) {
-	fmt.Println("create sample valina k8s yaml files", param)
 	path, err := CreateFolder(param, "kubernetes")
 	if err != nil {
 		errMsg := fmt.Errorf("%s", err)
 		fmt.Println(errMsg)
 	}
+	fmt.Println("create sample valina k8s yaml files:", path)
 
 	const readmeContent = `
 # This is a Readme file HELM
