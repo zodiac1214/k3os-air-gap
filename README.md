@@ -1,4 +1,4 @@
-![build](https://github.com/zodiac1214/k3os-air-gap/workflows/Go/badge.svg)
+![build](https://github.com/zodiac1214/kcap/workflows/Go/badge.svg)
 # k3os Machine Image for air-gap system
 
 Pack k8s applications with k3os on air-gap system. All you need is to provide a list of images your application needs. Please note that we only produce vagrant box image for now.
