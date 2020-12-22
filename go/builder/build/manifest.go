@@ -6,5 +6,5 @@ import (
 )
 
 func Manifest(ctx context.Context, param BuildParameters) {
-	fmt.Println("build manifest")
+	fmt.Println("NOT Implemented: build manifest")
 }
