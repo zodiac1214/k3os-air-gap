@@ -14,7 +14,7 @@ Use **Kcap** to:
 * put all your existing kubernetes yaml files under ``cool-kids-project/kubernetes``
 * run ``builder build --path=./cool-kids-project --vm-type=vagrant``
 
-or  ``builder build --path=./cool-kids-project --vm-type=vsphere``
+  or ``builder build --path=./cool-kids-project --vm-type=vsphere``
 * Create VMs from the generated image on your favourite VMS
 * on the master node, ``/home/rancher/scripts/configure_k3s_server.sh <TOKEN> <MASTER_NODE_IP>``
 * on the worker node, ``/home/rancher/scripts/configure_k3s_server.sh <TOKEN> <MASTER_NODE_IP> <WORKER_NODE_IP>``
