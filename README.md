@@ -83,3 +83,7 @@ All above will get you:
 [comment]: <> (installer --path=./dist/my-new-project )
 
 [comment]: <> (```)
+
+[comment]: <> (vagrant ssh k3os-server -c 'sudo /home/rancher/scripts/configure_k3s_server.sh not4you2see! 192.168.33.10')
+
+[comment]: <> (vagrant ssh k3os-1 -c 'sudo /home/rancher/scripts/configure_k3s_node.sh not4you2see! 192.168.33.10 192.168.33.11')
