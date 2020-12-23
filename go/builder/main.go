@@ -19,6 +19,6 @@ func main() {
 	case builder.GenCmd.FullCommand():
 		cli.RunGen(gen.GenParameters{Name: *builder.GenCmd.Name, Path: *builder.GenCmd.Path, Force: *builder.GenCmd.Force})
 	case builder.BuildCmd.FullCommand():
-		cli.RunBuild(build.BuildParameters{Path: *builder.BuildCmd.Path, Force: *builder.BuildCmd.Force})
+		cli.RunBuild(build.BuildParameters{Path: *builder.BuildCmd.Path, ImageType: *builder.BuildCmd.ImageType, Force: *builder.BuildCmd.Force})
 	}
 }
