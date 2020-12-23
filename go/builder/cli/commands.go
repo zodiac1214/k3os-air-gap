@@ -20,6 +20,8 @@ type buildCmd struct {
 	Force *bool
 	// path of bootstrap project
 	Path *string
+	// VM image type
+	ImageType *string
 }
 
 type genCmd struct {
@@ -46,6 +48,7 @@ func RegisterCommands(app *kingpin.Application) App {
 
 	builder.BuildCmd.CmdClause = app.Command("build", "bootstrap a project")
 	builder.BuildCmd.Path = builder.BuildCmd.Flag("path", "output path of the project").Required().String()
+	builder.BuildCmd.ImageType = builder.BuildCmd.Flag("imageType", "output path of the project").Default("vagrant").String()
 	builder.BuildCmd.Force = builder.BuildCmd.Flag("force", "delete existing project before generate").Bool()
 
 	//builder.UsageTemplate(kingpin.DefaultUsageTemplate)

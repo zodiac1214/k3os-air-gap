@@ -10,8 +10,9 @@ import (
 )
 
 type BuildParameters struct {
-	Path  string
-	Force bool
+	Path      string
+	Force     bool
+	ImageType string
 }
 
 func CopyDirectory(scrDir, dest string) error {
