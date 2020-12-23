@@ -4,7 +4,7 @@
 require 'ipaddr'
 require 'yaml'
 
-x = YAML.load_file('config.yaml')
+x = YAML.load_file('vm.config.yaml')
 
 Vagrant.configure(2) do |config|
   config.vbguest.auto_update = false if Vagrant.has_plugin?("vagrant-vbguest") # disable conflicting plugin
