@@ -29,13 +29,13 @@ jobs:
     - name: Get dependencies
       run: |
         go get golang.org/dl/go1.16beta1
-        go1.16beta1 mod download
+        go1.16beta1 mod vendor
 
     - name: Build
       run: |
         go get golang.org/dl/go1.16beta1
-        GOOS=darwin CGO_ENABLED=0 go1.16beta1 build -o builder-darwin -v ./go/builder/main.go
-        GOOS=linux CGO_ENABLED=0 go1.16beta1 build -o builder-darwin -v ./go/builder/main.go
+        GOOS=darwin CGO_ENABLED=0 go1.16beta1 build -mod=vendor -o builder-darwin -v ./go/builder/main.go
+        GOOS=linux CGO_ENABLED=0 go1.16beta1 build -mod=vendor -o builder-darwin -v ./go/builder/main.go
 
     - name: Test
       run: |
