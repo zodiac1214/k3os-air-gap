@@ -23,7 +23,7 @@ Use **Kcap** to:
 * move *kcap* to: `/usr/bin/kcap`
 
 ## In a nutshell ...
-###*NOTE*: Anything marked with ``*`` below is not implemented yet 
+### *NOTE*: Anything marked with ``*`` below is not implemented yet 
 * run ``kcap gen --name=cool-kids-project``
 * put all your existing helm charts under ``cool-kids-project/charts``
 * put all your existing kubernetes yaml files under ``cool-kids-project/kubernetes``\*
