@@ -27,11 +27,7 @@ jobs:
 
     - name: Get dependencies
       run: |
-        go1.16beta1 get -v -t -d ./...
-        if [ -f Gopkg.toml ]; then
-            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-            dep ensure
-        fi
+        go1.16beta1 mod download
 
     - name: Build
       run: |
