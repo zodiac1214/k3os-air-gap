@@ -63,6 +63,7 @@ func pullAndSave(image string) (string, error) {
 	cmd := exec.Command("docker", "pull", image)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
+		log.Fatal(string(out))
 		log.Fatal(err)
 	}
 	r := regexp.MustCompile(`Digest: (.*)\n`)

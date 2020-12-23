@@ -39,16 +39,20 @@ func Helm(ctx context.Context, param BuildParameters) {
 		}
 
 		fmt.Println("process chart:", path)
-
-		chart, _ := loader.Load(path)
+		chart, err := loader.Load(path)
 		if err != nil {
 			errPrint := fmt.Errorf("%s", "Failed to load chart : "+path)
 			fmt.Println(errPrint)
 			os.Exit(1)
 		}
-		values, _ := chartutil.ReadValuesFile(path + "/values.yaml")
-		renderValues, _ := chartutil.ToRenderValues(chart, values, chartutil.ReleaseOptions{}, &chartutil.Capabilities{})
-		renderedTemplates, _ := engine.Render(chart, renderValues)
+		values, err := chartutil.ReadValuesFile(path + "/values.yaml")
+		renderValues, err := chartutil.ToRenderValues(chart, values, chartutil.ReleaseOptions{}, chartutil.DefaultCapabilities)
+		renderedTemplates, err := engine.Render(chart, renderValues)
+		if err != nil {
+			errPrint := fmt.Errorf("%s", "Failed to render chart : "+path)
+			fmt.Println(errPrint)
+			log.Fatal(err)
+		}
 
 		result := make(map[string]string)
 		for k, v := range renderedTemplates {
@@ -64,8 +68,10 @@ func Helm(ctx context.Context, param BuildParameters) {
 			foundStrings := r.FindStringSubmatch(v)
 			if len(foundStrings) == 2 {
 				content := strings.Replace(foundStrings[1], `"`, "", -1) + "\n"
-				fmt.Println("Extract image from rendered chart, image found:", content)
-				appendToFile("./dist", "imageList", content)
+				if len(content) > 1 {
+					fmt.Println("Extract image from rendered chart, image found:", content)
+					appendToFile("./dist", "imageList", content)
+				}
 			}
 		}
 	}
