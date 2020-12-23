@@ -11,10 +11,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          # build and publish in parallel: linux/386, linux/amd64, windows/386, windows/amd64, darwin/386, darwin/amd64
-          goos: [ linux, windows, darwin ]
     steps:
 
     - name: Set up Go 1.x
