@@ -19,7 +19,7 @@ Use **Kcap** to:
 #### Install
 * Download binary for [release](https://github.com/zodiac1214/kcap/releases)
 * rename the binart to "kcap"
-* make it executable: ``chmod mod +x kcap``
+* make it executable: ``chmod +x kcap``
 * move *kcap* to: `/usr/bin/kcap`
 
 ## In a nutshell ...
