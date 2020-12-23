@@ -40,6 +40,7 @@ func Docker(ctx context.Context, param BuildParameters) {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		image := scanner.Text()
+		//todo: pull and save should run in parallel
 		out, err := pullAndSave(image)
 		if err != nil {
 			log.Fatal(err)
