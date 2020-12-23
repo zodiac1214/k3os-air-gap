@@ -11,6 +11,10 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          # build and publish in parallel: linux/386, linux/amd64, windows/386, windows/amd64, darwin/386, darwin/amd64
+          goos: [ linux, windows, darwin ]
     steps:
 
     - name: Set up Go 1.x
@@ -34,7 +38,9 @@ jobs:
         fi
 
     - name: Build
-      run: go1.16beta1 build -v ./...
+      run: |
+        GOOS=darwin CGO_ENABLED=0 go1.16beta1 build -o builder-darwin -v ./go/builder/main.go
+        GOOS=linux CGO_ENABLED=0 go1.16beta1 build -o builder-darwin -v ./go/builder/main.go
 
     - name: Test
       run: go1.16beta1 test -v ./...
