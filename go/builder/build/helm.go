@@ -19,6 +19,7 @@ interact with helm lib
 */
 
 func Helm(ctx context.Context, param BuildParameters) {
+	fmt.Println("Render helm charts ...")
 	pathToCharts := param.Path + "/charts"
 	files, err := ioutil.ReadDir(pathToCharts)
 	if err != nil {
@@ -63,6 +64,7 @@ func Helm(ctx context.Context, param BuildParameters) {
 			foundStrings := r.FindStringSubmatch(v)
 			if len(foundStrings) == 2 {
 				content := strings.Replace(foundStrings[1], `"`, "", -1) + "\n"
+				fmt.Println("Extract image from rendered chart, image found:", content)
 				appendToFile("./dist", "imageList", content)
 			}
 		}
