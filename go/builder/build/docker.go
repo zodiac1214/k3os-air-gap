@@ -19,6 +19,7 @@ interact with docker lib to perform docker actions
 */
 
 func Docker(ctx context.Context, param BuildParameters) {
+	fmt.Println("Download and save docker images ...")
 	pathToImageList := "./dist/imageList"
 	if _, err := os.Stat(pathToImageList); os.IsExist(err) {
 		log.Fatal("imagesList file does not exist")
@@ -43,7 +44,7 @@ func Docker(ctx context.Context, param BuildParameters) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(out)
+		fmt.Println("Save image:", image, "=>", out)
 	}
 
 	if err := scanner.Err(); err != nil {
