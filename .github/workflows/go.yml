@@ -41,3 +41,8 @@ jobs:
       run: |
         go get golang.org/dl/go1.16beta1
         go1.16beta1 test -cover -coverprofile=profile.cov -v ./go/...
+
+    - uses: actions/checkout@v2
+    - uses: shogo82148/actions-goveralls@v1
+      with:
+        path-to-profile: profile.cov
