@@ -8,7 +8,7 @@ import (
 func Manifest(param GenParameters) {
 
 	const content = `
-apiVersion: zodiac1214/k3os
+apiVersion: zodiac1214/kcap
 kind: Manifest
 metadata:
   name: ThisIsTheName
