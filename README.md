@@ -1,10 +1,12 @@
-![alt text](https://github.com/zodiac1214/kcap/blob/master/logo.png?raw=true "kcap")
+<p align="center">
+  <img width="460" height="300" src="https://github.com/zodiac1214/kcap/blob/master/logo.png?raw=true">
+
+  <span>Kcap (mirror of pack) is a tool for packing kubernetes application for air-gap installation. Kcap produces different types of VM images for air-gap/zero internet installation</span>
+</p>
 
 [![build](https://github.com/zodiac1214/kcap/workflows/Go/badge.svg)](https://github.com/zodiac1214/kcap/actions?query=workflow%3AGo+branch%3Amaster)
 [![Go Report Card](https://goreportcard.com/badge/github.com/zodiac1214/kcap)](https://goreportcard.com/report/github.com/zodiac1214/kcap)
 [![Coverage Status](https://coveralls.io/repos/github/zodiac1214/kcap/badge.svg?branch=master)](https://coveralls.io/github/zodiac1214/kcap?branch=master)
-
-Kcap (mirror of pack) is a tool for packing kubernetes application for air-gap installation. Kcap produces different types of VM images for air-gap/zero internet installation
 
 Use **Kcap** to:
 * Pack/Install k8s ([k3os](https://github.com/rancher/k3os)) into air-gapped environment (zero internet access)
