@@ -1,6 +1,7 @@
 # kcap
 [![build](https://github.com/zodiac1214/kcap/workflows/Go/badge.svg)](https://github.com/zodiac1214/kcap/workflows/Go/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/zodiac1214/kcap)](https://goreportcard.com/report/github.com/zodiac1214/kcap)
+[![Coverage Status](https://coveralls.io/repos/github/zodiac1214/kcap/badge.svg)](https://coveralls.io/github/zodiac1214/kcap)
 
 Kcap (mirror of pack) is a tool for packing kubernetes application for air-gap installation. Kcap produces different types of VM images for air-gap/zero internet installation
 
