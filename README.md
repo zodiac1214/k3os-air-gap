@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="460" height="300" src="https://github.com/zodiac1214/kcap/blob/master/logo.png?raw=true">
+  <img width="230" height="150" src="https://github.com/zodiac1214/kcap/blob/master/logo.png?raw=true">
 
   <span>Kcap (mirror of pack) is a tool for packing kubernetes application for air-gap installation. Kcap produces different types of VM images for air-gap/zero internet installation</span>
 </p>
