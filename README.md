@@ -26,6 +26,19 @@ Use **Kcap** to:
 * make it executable: ``chmod +x kcap``
 * move *kcap* to: `/usr/bin/kcap`
 
+## How it works
+### Packing
+Kubernetes is packed using [k3os](https://github.com/rancher/k3os), all required docker images are exported and saved to VM image. Istio ,rancher dashboard and promethues are also pre-packed into the VM image. For your application, we read your helm charts or vanilla k8s yaml files to extract all docker images that are required. When the VM image is produced, it will have all binaries and images required to run kubernetes as well as your application. The idea is similar to what github enterprise is providing: virtual appliance.    
+### Install
+[k3os](https://github.com/rancher/k3os) is in charge of build kubernetes cluster. We choose k3s mainly for 3 reasons:
+* It is production ready
+* k3s removed only cloud integration in the original kubernetes which is a perfect fit for air gap system. where we won't use any cloud features like AWS EBS
+* Rancher lab has provided a lot of nice integration with their k3s. You can provide your customer with an out-of-box cluster management/monitoring tool on top of your application
+
+Two scripts are pre-packed into the VM image. You can run one of it to configure a VM as master or worker. When we configure worker nodes, the script also import all docker images using `ctr image import`. That said there is no private registry gets involved. 
+
+We will use helm to deploy applications chart provided.   
+
 ## In a nutshell ...
 ### *NOTE*: Anything marked with ``*`` below is not implemented yet 
 * run ``kcap gen --name=cool-kids-project``
