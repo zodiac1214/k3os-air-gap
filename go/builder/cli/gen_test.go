@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"github.com/google/uuid"
 	"github.com/zodiac1214/go/builder/gen"
 	"testing"
 )
@@ -8,7 +9,7 @@ import (
 func TestRunGen(t *testing.T) {
 	t.Run("Force build", func(t *testing.T) {
 		param := gen.GenParameters{
-			Name:  "",
+			Name:  uuid.New().String(),
 			Path:  "/tmp",
 			Force: true,
 		}
@@ -17,7 +18,7 @@ func TestRunGen(t *testing.T) {
 
 	t.Run("Rebuild", func(t *testing.T) {
 		param := gen.GenParameters{
-			Name:  "",
+			Name:  uuid.New().String(),
 			Path:  "/tmp",
 			Force: false,
 		}
