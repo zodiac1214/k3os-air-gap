@@ -31,7 +31,7 @@
     "ssh_username": "vagrant",
     "ssh_private_key_file": "vagrant-ssh-default.pem",
     "ssh_wait_timeout": "1000s",
-    "disk_size": "8000",
+    "disk_size": "20000",
     "shutdown_command": "sudo poweroff",
     "post_shutdown_delay": "10s",
     "format": "ova"
@@ -51,6 +51,21 @@
       "type": "file",
       "source": "../../images",
       "destination": "/home/rancher/images"
+    },
+    {
+      "type": "file",
+      "source": "../../charts",
+      "destination": "/home/rancher/charts"
+    },
+    {
+      "type": "file",
+      "source": "../../kubernetes",
+      "destination": "/home/rancher/kubernetes"
+    },
+    {
+      "type": "file",
+      "source": "../../manifest.yml",
+      "destination": "/home/rancher/manifest.yml"
     },
     {
       "type": "file",
