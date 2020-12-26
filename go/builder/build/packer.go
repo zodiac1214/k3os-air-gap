@@ -1,6 +1,7 @@
 package build
 
 import (
+	"bufio"
 	"context"
 	"embed"
 	"fmt"
@@ -19,20 +20,34 @@ func Packer(ctx context.Context, param BuildParameters) {
 	fmt.Println("Extract packer files to dist folder ...")
 	_ = extractBundledDirectory("packer")
 
-	fileUrl := "https://github.com/k3s-io/k3s/releases/download/v1.18.9%2Bk3s1/k3s-airgap-images-amd64.tar"
-	err := downloadFile("dist/k3s-airgap-images-amd64.tar", fileUrl)
+	fmt.Println("Download k3s air gap images ...")
+	if _, err := os.Stat("dist/k3s-airgap-images-amd64.tar"); os.IsNotExist(err) {
+		fileUrl := "https://github.com/k3s-io/k3s/releases/download/v1.18.9%2Bk3s1/k3s-airgap-images-amd64.tar"
+		err := downloadFile("dist/k3s-airgap-images-amd64.tar", fileUrl)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Downloaded: " + fileUrl)
+	}
+
+	fmt.Println("Building VM image with packer ...")
+	var cmd *exec.Cmd
+	cmd = exec.Command("packer", "build", "--force", "packer.json")
+	cmd.Dir = "./dist/packer/" + param.ImageType
+	stdout, _ := cmd.StdoutPipe()
+	err := cmd.Start()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Downloaded: " + fileUrl)
 
-	fmt.Println("Building VM image with packer ...")
-	cmd := exec.Command("packer", "build", "--force", "packer/vagrant/packer.json")
-	cmd.Dir = "./dist"
-	out, err := cmd.CombinedOutput()
-	fmt.Println(string(out))
+	scanner := bufio.NewScanner(stdout)
+	for scanner.Scan() {
+		m := scanner.Text()
+		fmt.Println(m)
+	}
+	err = cmd.Wait()
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }
 

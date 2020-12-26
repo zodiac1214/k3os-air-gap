@@ -32,6 +32,7 @@ Vagrant.configure(2) do |config|
     hostname = "k3os-%d" % i
     config.vm.define hostname do |node|
       node.vm.box = "k3os"
+      node.disksize.size = "20GB"
       node.vm.guest = :linux
       node.vm.provider "virtualbox" do |v|
         v.customize ['modifyvm', :id, '--natnet1', '192.168.222.0/24']

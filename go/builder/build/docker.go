@@ -70,17 +70,19 @@ func pullAndSave(image string) (string, error) {
 	r := regexp.MustCompile(`Digest: (.*)\n`)
 	digest := r.FindStringSubmatch(string(out))
 	digestValue := strings.Split(digest[1], ":")[1]
-	//	cmd = exec.Command("docker", "save", image, ">", "./dist/images/"+digestValue+".tar")
-	cmd = exec.Command("docker", "save", image)
-	var buf bytes.Buffer
-	cmd.Stdout = &buf
-	err = cmd.Run()
-	if err != nil {
-		log.Println(cmd.Stderr)
-		log.Fatal(err)
+
+	if _, err := os.Stat("dist/images/" + digestValue + ".tar"); os.IsNotExist(err) {
+		cmd = exec.Command("docker", "save", image)
+		var buf bytes.Buffer
+		cmd.Stdout = &buf
+		err = cmd.Run()
+		if err != nil {
+			log.Println(cmd.Stderr)
+			log.Fatal(err)
+		}
+		//, ">", cwd+"/dist/images/"+digestValue+".tar"
+		createTarballFile("dist/images", digestValue+".tar", buf.Bytes())
 	}
-	//, ">", cwd+"/dist/images/"+digestValue+".tar"
-	createTarballFile("dist/images", digestValue+".tar", buf.Bytes())
 	return digest[1], err
 }
 
