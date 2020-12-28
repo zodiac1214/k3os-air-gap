@@ -18,8 +18,8 @@ cat <<EOF > /mnt/k3os/system/config.yaml
 run_cmd:
   # Duplicate rancher as vagrant user to let ssh the system with vagrant login
   - "sudo sed -e '/^rancher/p' -e 's/^rancher/vagrant/' -i /etc/passwd"
-  # Set ip of internal interface
-  - "sudo ifconfig eth1 ${k3s_node_ip}"
+  # Set ip
+  - "sudo ifconfig eth0 ${k3s_node_ip}"
 ssh_authorized_keys:
   # Vagrant key, from https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub
   - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key
@@ -36,7 +36,12 @@ k3os:
   environment:
     INSTALL_K3S_SKIP_DOWNLOAD: true
 EOF
+rm -rf /var/lib/rancher/k3s/agent
+rm -rf /var/lib/rancher/k3s/data
+rm -rf /var/lib/rancher/k3s/server
+set -e
 for filename in /home/rancher/images/*.tar; do
     sudo ctr image import ${filename}
 done
+rm -rf /home/rancher/images
 reboot

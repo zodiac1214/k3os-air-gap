@@ -34,7 +34,7 @@
     "disk_size": "20000",
     "shutdown_command": "sudo poweroff",
     "post_shutdown_delay": "10s",
-    "format": "ova"
+    "format": "ovf"
 
   }],
   "provisioners": [{
@@ -64,8 +64,8 @@
     },
     {
       "type": "file",
-      "source": "../../manifest.yml",
-      "destination": "/home/rancher/manifest.yml"
+      "source": "../../manifest.yaml",
+      "destination": "/home/rancher/manifest.yaml"
     },
     {
       "type": "file",
