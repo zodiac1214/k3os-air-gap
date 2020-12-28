@@ -36,8 +36,6 @@ k3os:
   environment:
     INSTALL_K3S_SKIP_DOWNLOAD: true
 EOF
-rm -rf /var/lib/rancher/k3s/agent
-rm -rf /var/lib/rancher/k3s/data
 rm -rf /var/lib/rancher/k3s/server
 set -e
 for filename in /home/rancher/images/*.tar; do
