@@ -31,7 +31,7 @@ k3os:
     - "--bind-address=${k3s_server_ip}"
     - "--advertise-address=${k3s_server_ip}"
     - "--flannel-backend=ipsec"
-    - "--flannel-iface=eth1"
+    - "--flannel-iface=eth0"
     - "--node-ip=${k3s_server_ip}"
     - "--node-external-ip=${k3s_server_ip}"
     - "--no-deploy=traefik"

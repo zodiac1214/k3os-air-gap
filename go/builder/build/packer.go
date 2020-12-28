@@ -20,6 +20,9 @@ func Packer(ctx context.Context, param BuildParameters) {
 	fmt.Println("Extract packer files to dist folder ...")
 	_ = extractBundledDirectory("packer")
 
+	fmt.Println("Extract system images ...")
+	ExtractImageFromList("dist/packer/system-images.list")
+
 	fmt.Println("Download k3s air gap images ...")
 	if _, err := os.Stat("dist/k3s-airgap-images-amd64.tar"); os.IsNotExist(err) {
 		fileUrl := "https://github.com/k3s-io/k3s/releases/download/v1.18.9%2Bk3s1/k3s-airgap-images-amd64.tar"

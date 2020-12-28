@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+	"sync"
 )
 
 /*
@@ -21,6 +22,10 @@ interact with docker lib to perform docker actions
 func Docker(ctx context.Context, param BuildParameters) {
 	fmt.Println("Download and save docker images ...")
 	pathToImageList := "./dist/imageList"
+	ExtractImageFromList(pathToImageList)
+}
+
+func ExtractImageFromList(pathToImageList string) {
 	if _, err := os.Stat(pathToImageList); os.IsExist(err) {
 		log.Fatal("imagesList file does not exist")
 	}
@@ -36,17 +41,15 @@ func Docker(ctx context.Context, param BuildParameters) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	var waitGroup sync.WaitGroup
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		image := scanner.Text()
-		//todo: pull and save should run in parallel
-		out, err := pullAndSave(image)
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Println("Save image:", image, "=>", out)
+		waitGroup.Add(1)
+		go pullAndSave(image, &waitGroup)
+		fmt.Println("Save image:", image, "...")
 	}
+	waitGroup.Wait()
 
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
@@ -56,14 +59,16 @@ func Docker(ctx context.Context, param BuildParameters) {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
+
 }
 
 // pull pulls an image using "docker pull" command that lets us take advantage of its cached
 // credentials for multiple docker registries
-func pullAndSave(image string) (string, error) {
+func pullAndSave(image string, waitGroup *sync.WaitGroup) {
 	cmd := exec.Command("docker", "pull", image)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
+		waitGroup.Done()
 		log.Fatal(string(out))
 		log.Fatal(err)
 	}
@@ -77,13 +82,15 @@ func pullAndSave(image string) (string, error) {
 		cmd.Stdout = &buf
 		err = cmd.Run()
 		if err != nil {
+			waitGroup.Done()
 			log.Println(cmd.Stderr)
 			log.Fatal(err)
 		}
 		//, ">", cwd+"/dist/images/"+digestValue+".tar"
 		createTarballFile("dist/images", digestValue+".tar", buf.Bytes())
 	}
-	return digest[1], err
+	fmt.Println("Save image:", image, "=>", digest[1])
+	waitGroup.Done()
 }
 
 func createTarballFile(path string, filename string, content []byte) error {

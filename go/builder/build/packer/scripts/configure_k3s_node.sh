@@ -29,7 +29,7 @@ k3os:
     - agent
     - "--token=${k3s_token}"
     - "--server=https://${k3s_server_ip}:6443"
-    - "--flannel-iface=eth1"
+    - "--flannel-iface=eth0"
     - "--node-name=k3os-${k3s_node_index}"
     - "--node-ip=${k3s_node_ip}"
     - "--node-external-ip=${k3s_node_ip}"
