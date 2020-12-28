@@ -2,4 +2,3 @@ rancher/system-upgrade-controller:v0.6.2
 rancher/istio-proxyv2:1.7.3
 rancher/istio-pilot:1.7.3
 rancher/kiali-kiali:v1.24.0
-k8s.gcr.io/metrics-server-amd64:v0.3.6
