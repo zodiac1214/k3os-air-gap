@@ -48,7 +48,7 @@ func RegisterCommands(app *kingpin.Application) App {
 
 	builder.BuildCmd.CmdClause = app.Command("build", "bootstrap a project")
 	builder.BuildCmd.Path = builder.BuildCmd.Flag("path", "output path of the project").Required().String()
-	builder.BuildCmd.ImageType = builder.BuildCmd.Flag("imageType", "output path of the project").Default("vagrant").String()
+	builder.BuildCmd.ImageType = builder.BuildCmd.Flag("imageType", "output path of the project").Default("virtualbox").String()
 	builder.BuildCmd.Force = builder.BuildCmd.Flag("force", "delete existing project before generate").Bool()
 
 	//builder.UsageTemplate(kingpin.DefaultUsageTemplate)

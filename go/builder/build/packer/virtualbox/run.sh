@@ -1,4 +1,5 @@
 #!/bin/sh
+#TODO: remove vagrant dep
 read -p "turn off wifi!!!! (press any key to continue ...)"
 vagrant destroy -f
 vagrant box remove k3os --force

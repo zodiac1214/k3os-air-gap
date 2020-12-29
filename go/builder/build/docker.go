@@ -69,7 +69,7 @@ func pullAndSave(image string, waitGroup *sync.WaitGroup) {
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		waitGroup.Done()
-		log.Fatal(string(out))
+		log.Fatal("Image:", image, string(out))
 		log.Fatal(err)
 	}
 	r := regexp.MustCompile(`Digest: (.*)\n`)

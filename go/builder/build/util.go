@@ -1,9 +1,11 @@
 package build
 
 import (
+	"embed"
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 	"syscall"
@@ -13,6 +15,32 @@ type BuildParameters struct {
 	Path      string
 	Force     bool
 	ImageType string
+}
+
+func ExtractBundledDirectory(path string, embedFiles embed.FS) error {
+	directories, err := embedFiles.ReadDir(path)
+	if err != nil {
+		log.Fatal("Failed to extract packer", err.Error())
+	}
+	for _, directory := range directories {
+		fullPath := path + "/" + directory.Name()
+		fmt.Println("Extracting: ", fullPath)
+		if directory.IsDir() {
+			err := CreateIfNotExists("dist/"+fullPath, 0755)
+			if err != nil {
+				log.Fatal("Failed to create folder in dist", err.Error())
+			}
+			ExtractBundledDirectory(fullPath, embedFiles)
+		} else {
+			file, _ := PackerFiles.Open(fullPath)
+			out, err := os.Create("dist/" + fullPath)
+			if err != nil {
+				return err
+			}
+			_, err = io.Copy(out, file)
+		}
+	}
+	return nil
 }
 
 func CopyDirectory(scrDir, dest string) error {

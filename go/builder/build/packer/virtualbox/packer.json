@@ -4,7 +4,7 @@
     "checksum": "ab15fcd4c4f5ed8805932523f85594f6844fe611fc50f8bc9a82ddd9bd326db0"
   },
   "builders": [{
-    "name": "vagrant",
+    "name": "virtualbox",
     "type": "virtualbox-iso",
     "boot_wait": "6s",
     "headless": true,
@@ -28,10 +28,10 @@
     "http_directory": ".",
     "iso_url": "https://github.com/rancher/k3os/releases/download/{{user `version`}}/k3os-amd64.iso",
     "iso_checksum": "{{user `checksum`}}",
-    "ssh_username": "vagrant",
-    "ssh_private_key_file": "vagrant-ssh-default.pem",
+    "ssh_username": "rancher",
+    "ssh_private_key_file": "ssh-default.pem",
     "ssh_wait_timeout": "1000s",
-    "disk_size": "20000",
+    "disk_size": "40000",
     "shutdown_command": "sudo poweroff",
     "post_shutdown_delay": "10s",
     "format": "ovf"
@@ -76,11 +76,5 @@
       "type": "shell",
       "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
       "inline": ["sudo mkdir -p /var/lib/rancher/k3s/agent/images/", "sudo mv /home/rancher/k3s-airgap-images-amd64.tar /var/lib/rancher/k3s/agent/images/k3s-airgap-images-amd64.tar"]
-    }],
-  "post-processors": [{
-    "type": "vagrant",
-    "keep_input_artifact": true,
-    "output": "k3os_{{.Provider}}.box",
-    "vagrantfile_template": "vagrant.template"
-  }]
+    }]
 }

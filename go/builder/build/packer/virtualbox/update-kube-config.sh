@@ -1,4 +1,5 @@
 #!/bin/sh
+#TODO: remove vagrant dep
 cwd=$(pwd)
 SERVER_IP=$(cat vm.config.yaml | grep " server" | cut -d " " -f 4)
 rm -rf kube.config
