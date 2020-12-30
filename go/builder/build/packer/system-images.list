@@ -1,7 +1,6 @@
 rancher/system-upgrade-controller:v0.6.2
 rancher/istio-proxyv2:1.7.3
 rancher/istio-pilot:1.7.3
-rancher/kiali-kiali:v1.24.0
 rancher/library-traefik:1.7.19
 rancher/backup-restore-operator:v1.0.2
 rancher/configmap-reload:v0.3.0-rancher2
@@ -12,6 +11,7 @@ rancher/fluent-fluent-bit:1.5.4
 rancher/fluentd:v0.1.19
 rancher/gitjob:v0.1.8
 rancher/grafana-grafana:7.1.5
+rancher/istio-installer:1.7.3-rancher2
 rancher/istio-proxyv2:1.7.3
 rancher/istio-sidecar_injector:1.5.9
 rancher/jaegertracing-all-in-one:1.14

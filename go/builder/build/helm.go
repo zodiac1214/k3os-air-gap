@@ -19,6 +19,11 @@ interact with helm lib
 */
 
 func Helm(ctx context.Context, param BuildParameters) {
+	err := extractSystemCharts()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	fmt.Println("Render helm charts ...")
 	pathToCharts := param.Path + "/charts"
 	files, err := ioutil.ReadDir(pathToCharts)
@@ -73,8 +78,24 @@ func Helm(ctx context.Context, param BuildParameters) {
 					appendToFile("./dist", "imageList", content)
 				}
 			}
+
+			// set imagePullPolicy (TODO)
+			r = regexp.MustCompile(`imagePullPolicy: (.*)\n`)
+			foundStrings = r.FindStringSubmatch(v)
+			//if len(foundStrings) == 2 {
+			//	content := strings.Replace(foundStrings[1], `"`, "", -1) + "\n"
+			//	if len(content) > 1 {
+			//		fmt.Println("Extract image from rendered chart, image found:", content)
+			//		appendToFile("./dist", "imageList", content)
+			//	}
+			//}
 		}
 	}
+}
+
+func extractSystemCharts() error {
+	fmt.Println("TODO: extract system chart")
+	return nil
 }
 
 func appendToFile(path string, filename string, content string) error {
