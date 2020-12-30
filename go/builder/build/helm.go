@@ -2,10 +2,12 @@ package build
 
 import (
 	"context"
+	"embed"
 	"fmt"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"
 	"helm.sh/helm/v3/pkg/engine"
+	"io/fs"
 	"io/ioutil"
 	"log"
 	"os"
@@ -24,6 +26,56 @@ func Helm(ctx context.Context, param BuildParameters) {
 		log.Fatal(err)
 	}
 
+	err = forceImagePullPolicyToLocal()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	extractImagesFromRenderedCharts(param)
+}
+
+func forceImagePullPolicyToLocal() error {
+	err := filepath.Walk("dist/charts", findAndReplace)
+	return err
+}
+
+func findAndReplace(path string, fi fs.FileInfo, err error) error {
+	if err != nil {
+		return err
+	}
+
+	if !!fi.IsDir() {
+		return nil //
+	}
+
+	matched, err := filepath.Match("*.yaml", fi.Name())
+
+	if err != nil {
+		panic(err)
+		return err
+	}
+
+	if matched {
+		read, err := ioutil.ReadFile(path)
+		if err != nil {
+			panic(err)
+		}
+		//fmt.Println(string(read))
+		fmt.Println(path)
+
+		newContents := strings.Replace(string(read), "imagePullPolicy: Always", "imagePullPolicy: Never", -1)
+
+		err = ioutil.WriteFile(path, []byte(newContents), 0)
+		if err != nil {
+			panic(err)
+		}
+
+	}
+
+	return nil
+}
+
+func extractImagesFromRenderedCharts(param BuildParameters) {
 	fmt.Println("Render helm charts ...")
 	pathToCharts := param.Path + "/charts"
 	files, err := ioutil.ReadDir(pathToCharts)
@@ -78,23 +130,20 @@ func Helm(ctx context.Context, param BuildParameters) {
 					appendToFile("./dist", "imageList", content)
 				}
 			}
-
-			// set imagePullPolicy (TODO)
-			r = regexp.MustCompile(`imagePullPolicy: (.*)\n`)
-			foundStrings = r.FindStringSubmatch(v)
-			//if len(foundStrings) == 2 {
-			//	content := strings.Replace(foundStrings[1], `"`, "", -1) + "\n"
-			//	if len(content) > 1 {
-			//		fmt.Println("Extract image from rendered chart, image found:", content)
-			//		appendToFile("./dist", "imageList", content)
-			//	}
-			//}
 		}
 	}
 }
 
+//go:embed system-charts/*
+var SysChartsFiles embed.FS
+
 func extractSystemCharts() error {
-	fmt.Println("TODO: extract system chart")
+	fmt.Println("Extract system chart ...")
+	err := ExtractBundledDirectory("system-charts", SysChartsFiles, "charts")
+	if err != nil {
+		return err
+	}
+	os.Rename("./dist/system-charts", "./dist/charts2")
 	return nil
 }
 

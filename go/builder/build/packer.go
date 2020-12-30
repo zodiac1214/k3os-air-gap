@@ -20,7 +20,7 @@ interact with hashicorp's packer lib to create machine images
 
 func Packer(ctx context.Context, param BuildParameters) {
 	fmt.Println("Extract packer files to dist folder ...")
-	_ = ExtractBundledDirectory("packer", PackerFiles)
+	_ = ExtractBundledDirectory("packer", PackerFiles, "packer")
 
 	fmt.Println("Extract system images ...")
 	ExtractImageFromList("dist/packer/system-images.list")

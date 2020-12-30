@@ -17,23 +17,24 @@ type BuildParameters struct {
 	ImageType string
 }
 
-func ExtractBundledDirectory(path string, embedFiles embed.FS) error {
+func ExtractBundledDirectory(path string, embedFiles embed.FS, dst string) error {
 	directories, err := embedFiles.ReadDir(path)
 	if err != nil {
 		log.Fatal("Failed to extract packer", err.Error())
 	}
 	for _, directory := range directories {
 		fullPath := path + "/" + directory.Name()
+		dstPath := dst + "/" + directory.Name()
 		fmt.Println("Extracting: ", fullPath)
 		if directory.IsDir() {
-			err := CreateIfNotExists("dist/"+fullPath, 0755)
+			err := CreateIfNotExists("dist/"+dstPath, 0755)
 			if err != nil {
 				log.Fatal("Failed to create folder in dist", err.Error())
 			}
-			ExtractBundledDirectory(fullPath, embedFiles)
+			ExtractBundledDirectory(fullPath, embedFiles, dstPath)
 		} else {
-			file, _ := PackerFiles.Open(fullPath)
-			out, err := os.Create("dist/" + fullPath)
+			file, _ := embedFiles.Open(fullPath)
+			out, err := os.Create("dist/" + dstPath)
 			if err != nil {
 				return err
 			}
