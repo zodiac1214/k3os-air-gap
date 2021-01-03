@@ -54,12 +54,6 @@ func ExtractImageFromList(pathToImageList string) {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
-
-	err = os.RemoveAll(pathToImageList)
-	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-	}
-
 }
 
 // pull pulls an image using "docker pull" command that lets us take advantage of its cached

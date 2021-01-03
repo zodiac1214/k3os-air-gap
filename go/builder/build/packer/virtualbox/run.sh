@@ -15,24 +15,20 @@ createVM () {
   VBoxManage startvm $VM_NAME --type headless
 }
 
-findIP() {
-  VM_NAME="$1"
-  macAddress=`vboxmanage showvminfo $VM_NAME | grep "NIC 1" | awk -F'MAC: ' '{print $2}' | awk -F',' '{print $1}'`
-  sleep 60
-  ip=`vboxmanage dhcpserver findlease --interface vboxnet0 --mac-address=$macAddress | grep "IP" | awk -F'Address:  ' '{print $2}'`
-  echo $ip
-}
 chmod 400 ssh-default.pem
 
 createVM "server"
+read -p "server Ip: " ServerIP
+ssh -o StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$ServerIP "sudo bash scripts/configure_k3s_server.sh thisistoken $ServerIP"
+
+
 createVM "node1"
+read -p "server Ip: " NodeIP
+ssh -o StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$NodeIP "sudo bash scripts/configure_k3s_node.sh thisistoken $ServerIP $NodeIP 1"
 
-findIP "server"
-ssh -o StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$ip "sudo bash scripts/configure_k3s_server.sh thisistoken $ip"
-ServerIP=$ip
-
-findIP "node1"
-ssh -o StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$ip "sudo bash scripts/configure_k3s_node.sh thisistoken $ServerIP $ip 1"
+createVM "node2"
+read -p "server Ip: " NodeIP2
+ssh -o StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$NodeIP2 "sudo bash scripts/configure_k3s_node.sh thisistoken $ServerIP $NodeIP2 2"
 
 ssh -o  StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$ServerIP "cat /etc/rancher/k3s/k3s.yaml" > kube.config
 KUBECONFIG=kube.config helm install rancher rancher-stable/rancher --version 2.5.3 --set tls=external
