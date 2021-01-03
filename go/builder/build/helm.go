@@ -2,7 +2,6 @@ package build
 
 import (
 	"context"
-	"embed"
 	"fmt"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"
@@ -21,12 +20,7 @@ interact with helm lib
 */
 
 func Helm(ctx context.Context, param BuildParameters) {
-	err := extractSystemCharts()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = forceImagePullPolicyToLocal()
+	err := forceImagePullPolicyToLocal()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -77,7 +71,7 @@ func findAndReplace(path string, fi fs.FileInfo, err error) error {
 
 func extractImagesFromRenderedCharts(param BuildParameters) {
 	fmt.Println("Render helm charts ...")
-	pathToCharts := param.Path + "/charts"
+	pathToCharts := "dist/charts"
 	files, err := ioutil.ReadDir(pathToCharts)
 	if err != nil {
 		log.Fatal(err)
@@ -132,19 +126,6 @@ func extractImagesFromRenderedCharts(param BuildParameters) {
 			}
 		}
 	}
-}
-
-//go:embed system-charts/*
-var SysChartsFiles embed.FS
-
-func extractSystemCharts() error {
-	fmt.Println("Extract system chart ...")
-	err := ExtractBundledDirectory("system-charts", SysChartsFiles, "charts")
-	if err != nil {
-		return err
-	}
-	os.Rename("./dist/system-charts", "./dist/charts2")
-	return nil
 }
 
 func appendToFile(path string, filename string, content string) error {
