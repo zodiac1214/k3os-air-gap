@@ -25,18 +25,14 @@ findIP() {
 chmod 400 ssh-default.pem
 
 createVM "server"
+createVM "node1"
+
 findIP "server"
 ssh -o StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$ip "sudo bash scripts/configure_k3s_server.sh thisistoken $ip"
 ServerIP=$ip
 
-
-createVM "node1"
 findIP "node1"
-ssh -o StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$ip "sudo bash scripts/configure_k3s_node.sh thisistoken $ServerIP $ip"
-
-createVM "node2"
-findIP "node2"
-ssh -o StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$ip "sudo bash scripts/configure_k3s_node.sh thisistoken $ServerIP $ip"
+ssh -o StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$ip "sudo bash scripts/configure_k3s_node.sh thisistoken $ServerIP $ip 1"
 
 ssh -o  StrictHostKeyChecking=no -i ./ssh-default.pem rancher@$ServerIP "cat /etc/rancher/k3s/k3s.yaml" > kube.config
 KUBECONFIG=kube.config helm install rancher rancher-stable/rancher --version 2.5.3 --set tls=external
